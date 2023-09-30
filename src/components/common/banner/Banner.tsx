@@ -10,7 +10,7 @@ const Banner: React.FC = () => {
             sx={{
                 backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${PortImg})`,
                 height: { xs: "45vh", sm: "50vh", md: "55vh", lg: "60vh" },
-                width: "100vw",
+                width: "100%",
                 backgroundPosition: "center",
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
