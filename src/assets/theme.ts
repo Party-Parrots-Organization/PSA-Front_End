@@ -1,11 +1,11 @@
 import { createTheme } from "@mui/material/styles";
 import { CSSProperties } from "@mui/material/styles/createTypography";
-import BebasNueue from "../fonts/bebas-neue/BebasNeue.woff2";
-import CircularSpotifyLight from "../fonts/circular-spotify/CircularSpotifyTextLight.woff2";
-import CircularSpotifyBold from "../fonts/circular-spotify/CircularSpotifyTextBold.woff2";
-import Lato from "../fonts/lato/Lato-Regular.woff2";
-import LatoBold from "../fonts/lato/Lato-Bold.woff2";
-import LatoSemiboldItalic from "../fonts/lato/Lato-SemiBoldItalic.woff2";
+import BebasNueue from "./fonts/bebas-neue/BebasNeue.woff2";
+import CircularSpotifyLight from "./fonts/circular-spotify/CircularSpotifyTextLight.woff2";
+import CircularSpotifyBold from "./fonts/circular-spotify/CircularSpotifyTextBold.woff2";
+import Lato from "./fonts/lato/Lato-Regular.woff2";
+import LatoBold from "./fonts/lato/Lato-Bold.woff2";
+import LatoSemiboldItalic from "./fonts/lato/Lato-SemiBoldItalic.woff2";
 
 /**
  * Declares common CSS Properties for all 3 headings
