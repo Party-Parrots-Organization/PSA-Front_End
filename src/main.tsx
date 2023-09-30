@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import CssBaseline from "@mui/material/CssBaseline";
 import { RouterProvider } from "react-router-dom";
 import router from "./router/router";
 import { SnackbarProvider, enqueueSnackbar } from "notistack";
@@ -30,6 +31,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
         <QueryClientProvider client={queryClient}>
             <ThemeProvider theme={defaultTheme}>
+                <CssBaseline />
                 <SnackbarProvider
                     Components={{
                         error: ErrorMessage,
