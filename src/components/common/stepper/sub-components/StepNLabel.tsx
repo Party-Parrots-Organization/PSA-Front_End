@@ -1,14 +1,22 @@
 import React from "react";
 import { StepIcon1, StepIcon2, StepIcon3 } from "./StepIcons";
 import { StepLabel, StepContent, Typography } from "@mui/material";
+import { Weather } from "../../../../types/form";
+import WeatherDisplay from "./WeatherDisplay";
 
 interface StepNLabelProps {
     label: string;
     ETA: string;
+    weather?: Weather;
     loc?: "start" | "end";
 }
 
-const StepNLabel: React.FC<StepNLabelProps> = ({ label, ETA, loc }) => {
+const StepNLabel: React.FC<StepNLabelProps> = ({
+    label,
+    ETA,
+    loc,
+    weather,
+}) => {
     return (
         <>
             <StepLabel
@@ -33,9 +41,7 @@ const StepNLabel: React.FC<StepNLabelProps> = ({ label, ETA, loc }) => {
                 <Typography variant="h3">{`${
                     loc === "start" ? `Departure` : `ETA`
                 }: ${ETA}`}</Typography>
-                <Typography variant="subtitle1">
-                    Other weather statistics
-                </Typography>
+                {weather && <WeatherDisplay weather={weather} />}
             </StepContent>
         </>
     );
