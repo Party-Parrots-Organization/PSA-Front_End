@@ -6,10 +6,12 @@ import CheckPointSection from "./sub-components/CheckpointsSection";
 import Button from "../../common/button/Button";
 import { useFormContext } from "react-hook-form";
 import { enqueueSnackbar } from "notistack";
+import { getETA } from "../../../api/api";
+import { FormType } from "../../../types/form";
 
 const RouteInformationSection: React.FC = () => {
     const { breakpoints } = useTheme();
-    const { handleSubmit } = useFormContext();
+    const { handleSubmit, setValue, reset } = useFormContext();
 
     return (
         <Container sx={{ my: "2rem" }} maxWidth="xl">
@@ -37,8 +39,16 @@ const RouteInformationSection: React.FC = () => {
                 <Button
                     variant="contained"
                     onClick={handleSubmit(
-                        (data) => {
-                            console.log(data);
+                        async (data) => {
+                            enqueueSnackbar("Calculating Route...", {
+                                variant: "info",
+                            });
+                            const returnData = await getETA(data as FormType);
+                            setValue("ETAs", returnData);
+                            enqueueSnackbar("Route Calculation Complete!", {
+                                variant: "success",
+                            });
+                            reset({}, { keepValues: true });
                         },
                         () =>
                             enqueueSnackbar(
