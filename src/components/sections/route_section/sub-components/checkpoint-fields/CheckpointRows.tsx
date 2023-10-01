@@ -8,11 +8,16 @@ import PortSelectField from "../../../../common/form/PortSelectField";
 import { Grid } from "@mui/material";
 
 interface CheckpointRowsType {
-    id: number;
+    id: string;
+    index: number;
     removeFn: () => void;
 }
 
-const CheckpointRows: React.FC<CheckpointRowsType> = ({ id, removeFn }) => {
+const CheckpointRows: React.FC<CheckpointRowsType> = ({
+    id,
+    index,
+    removeFn,
+}) => {
     const {
         attributes,
         listeners,
@@ -44,8 +49,8 @@ const CheckpointRows: React.FC<CheckpointRowsType> = ({ id, removeFn }) => {
 
             <Grid item lg={4} md={5} sm={6} xs={8}>
                 <PortSelectField
-                    label={`Checkpoint Port ${id + 1}`}
-                    name={`checkpoints.${id}`}
+                    label={`Checkpoint Port ${index + 1}`}
+                    name={`checkpoints.${index}`}
                 />
             </Grid>
 

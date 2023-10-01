@@ -33,7 +33,7 @@ const CheckPointFieldArray = () => {
             <DndContext
                 onDragEnd={(event) => {
                     const { active, over } = event;
-                    if (!!over && active.id !== over.id) {
+                    if (over && active.id !== over.id) {
                         const oldIndex = fields.findIndex(
                             (field) => field.id === active.id
                         );
@@ -51,11 +51,12 @@ const CheckPointFieldArray = () => {
                     strategy={verticalListSortingStrategy}
                     items={fields.map((field) => field.id)}
                 >
-                    <Grid direction="column" rowGap="1rem">
+                    <Grid component="div" display="flex" direction="column" gap={2}>
                         {fields.map((field, index) => (
                             <CheckpointRows
                                 key={field.id}
-                                id={index}
+                                id={field.id}
+                                index={index}
                                 removeFn={() => {
                                     remove(
                                         fields.findIndex(
