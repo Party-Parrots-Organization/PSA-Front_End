@@ -1,5 +1,4 @@
 import React from "react";
-import { PortType } from "../../../types/port";
 import {
     FormControl,
     FormControlProps,
@@ -10,8 +9,8 @@ import {
     Typography,
 } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
-
-const ports:PortType[] = []
+import { useQuery } from "@tanstack/react-query";
+import { getPorts } from "../../../api/api";
 
 interface PortSelectFieldProps extends FormControlProps {
     name: string;
@@ -24,6 +23,10 @@ const PortSelectField: React.FC<PortSelectFieldProps> = ({
     ...props
 }) => {
     const { control } = useFormContext();
+    const { data: ports } = useQuery({
+        queryKey: ["ports"],
+        queryFn: getPorts,
+    });
 
     return (
         <Controller
@@ -41,11 +44,17 @@ const PortSelectField: React.FC<PortSelectFieldProps> = ({
                         <Typography variant="subtitle1">{label}</Typography>
                     </InputLabel>
                     <Select label={label} {...field}>
-                        {ports.map(({ name, port_code }) => (
-                            <MenuItem key={port_code} value={port_code}>
-                                {name === "" ? <em>{name}</em> : name}
-                            </MenuItem>
-                        ))}
+                        <MenuItem value="">
+                            <em>Please select {label}</em>
+                        </MenuItem>
+                        {ports &&
+                            ports.map(({ port_name, port_code }) => (
+                                <MenuItem key={port_code} value={port_name}>
+                                    <Typography>
+                                        {`(${port_code}) ${port_name}`}
+                                    </Typography>
+                                </MenuItem>
+                            ))}
                     </Select>
                     {error && error.message && (
                         <FormHelperText>{error.message}</FormHelperText>
