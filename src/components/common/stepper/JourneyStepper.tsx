@@ -59,7 +59,7 @@ const JourneyStepper: React.FC = () => {
             <Step active>
                 <StepNLabel
                     loc="end"
-                    label={destWatcher ? destination_port : "destination_port"}
+                    label={destWatcher ? destination_port : "Destination Port"}
                     ETA={
                         ETAs && !isDirty
                             ? dayjs(ETAs[ETAs.length - 1].eta).format(
