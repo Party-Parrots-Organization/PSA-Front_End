@@ -5,23 +5,17 @@ import { StepLabel, StepContent, Typography } from "@mui/material";
 interface StepNLabelProps {
     label: string;
     ETA: string;
-    index: number;
-    length: number;
+    loc?: "start" | "end";
 }
 
-const StepNLabel: React.FC<StepNLabelProps> = ({
-    label,
-    ETA,
-    index,
-    length,
-}) => {
+const StepNLabel: React.FC<StepNLabelProps> = ({ label, ETA, loc }) => {
     return (
         <>
             <StepLabel
                 StepIconComponent={
-                    index === 0
+                    loc === "start"
                         ? StepIcon1
-                        : index === length - 1
+                        : loc === "end"
                         ? StepIcon3
                         : StepIcon2
                 }
@@ -36,7 +30,9 @@ const StepNLabel: React.FC<StepNLabelProps> = ({
                     borderLeft: "3px solid #BDBDBD",
                 }}
             >
-                <Typography variant="h3">{`ETA: ${ETA}`}</Typography>
+                <Typography variant="h3">{`${
+                    loc === "start" ? `Departure` : `ETA`
+                }: ${ETA}`}</Typography>
                 <Typography variant="subtitle1">
                     Other weather statistics
                 </Typography>
