@@ -29,7 +29,6 @@ const GeneralSection: React.FC = ({}) => {
                         <ShipSelectField
                             name="ship"
                             label="Ship"
-                            options={[]}
                         />
                     </Grid>
                     <Grid item lg={4} md={5} sm={6} xs={12}>
