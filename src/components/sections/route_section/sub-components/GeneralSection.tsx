@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 import React from "react";
 import PortSelectField from "../../../common/form/PortSelectField";
-import DatePickerField from "../../../common/form/DatePickerField";
+import DatePickerField from "../../../common/form/DateTimePickerField";
 import ShipSelectField from "../../../common/form/ShipSelectField";
 
 const GeneralSection: React.FC = ({}) => {
