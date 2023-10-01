@@ -2,6 +2,7 @@ import React from "react";
 import {
     Box,
     Chip,
+    Divider,
     FormControl,
     FormControlProps,
     FormHelperText,
@@ -12,22 +13,25 @@ import {
     Typography,
 } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
-import { ShipType } from "../../../types/ship";
 import shiptypes from "../../../constants/shiptypes";
+import { useQuery } from "@tanstack/react-query";
+import { getShips } from "../../../api/api";
 
 interface ShipSelectFieldProps extends FormControlProps {
-    options: ShipType[];
     name: string;
     label: string;
 }
 
 const ShipSelectField: React.FC<ShipSelectFieldProps> = ({
-    options,
     name,
     label,
     ...props
 }) => {
     const { control } = useFormContext();
+    const { data: ships } = useQuery({
+        queryKey: ["ships"],
+        queryFn: getShips,
+    });
 
     return (
         <Controller
@@ -44,15 +48,33 @@ const ShipSelectField: React.FC<ShipSelectFieldProps> = ({
                     <InputLabel>
                         <Typography variant="subtitle1">{label}</Typography>
                     </InputLabel>
-                    <Select label={label} {...field}>
-                        {options.map(
-                            ({ imo, ship_type, dim_a, dim_b, name }) => (
-                                <MenuItem key={imo} value={imo}>
-                                    {imo === -1 ? (
-                                        <em>Select Ship</em>
-                                    ) : (
-                                        <Box>
-                                            <Grid container>
+                    <Select
+                        label={label}
+                        {...field}
+                        renderValue={(val) =>
+                            ships?.find((ship) => ship.imo === val)?.ship_name || ""
+                        }
+                    >
+                        <MenuItem>
+                            <em>Select Ship</em>
+                        </MenuItem>
+                        <Divider light />
+                        {ships &&
+                            ships.map(
+                                ({
+                                    imo,
+                                    ship_type,
+                                    dim_a,
+                                    dim_b,
+                                    ship_name,
+                                }) => (
+                                    <MenuItem key={imo} value={imo}>
+                                        <Box width="100%">
+                                            <Grid
+                                                container
+                                                direction="column"
+                                                gap={0.5}
+                                            >
                                                 <Grid
                                                     container
                                                     direction="row"
@@ -61,32 +83,42 @@ const ShipSelectField: React.FC<ShipSelectFieldProps> = ({
                                                     <Chip
                                                         color="primary"
                                                         label={
-                                                            shiptypes[ship_type]
+                                                            <Typography variant="subtitle2">
+                                                                {
+                                                                    shiptypes[
+                                                                        ship_type
+                                                                    ]
+                                                                }
+                                                            </Typography>
                                                         }
                                                     />
                                                     <Chip
                                                         color="primary"
-                                                        label={imo}
+                                                        label={
+                                                            <Typography variant="subtitle2">
+                                                                {`imo: ${imo}`}
+                                                            </Typography>
+                                                        }
                                                     />
                                                 </Grid>
                                                 <Typography
-                                                    variant="body1"
+                                                    variant="body2"
                                                     fontWeight="bold"
                                                 >
-                                                    {name}
+                                                    {ship_name}
                                                 </Typography>
                                                 <Typography
-                                                    variant="subtitle1"
+                                                    variant="subtitle2"
                                                     color="rgba(0,0,0, 0.6)"
                                                 >
-                                                    {`${dim_a} x ${dim_b}`}
+                                                    {`Dimension; ${dim_a} x ${dim_b}`}
                                                 </Typography>
                                             </Grid>
+                                            <Divider light />
                                         </Box>
-                                    )}
-                                </MenuItem>
-                            )
-                        )}
+                                    </MenuItem>
+                                )
+                            )}
                     </Select>
                     {error && error.message && (
                         <FormHelperText>{error.message}</FormHelperText>
