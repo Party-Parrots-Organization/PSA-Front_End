@@ -49,7 +49,7 @@ const JourneyStepper: React.FC = () => {
                                     : "Computing"
                             }
                             weather={
-                                ETAs[index]?.weather &&
+                                ETAs && ETAs[index]?.weather &&
                                 !isDirty &&
                                 ETAs[index].weather
                             }
