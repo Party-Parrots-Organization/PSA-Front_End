@@ -16,7 +16,7 @@ const JourneyStepper: React.FC = () => {
         origin_port: originWatcher,
         destination_port: destWatcher,
         departure_date: dateWatcher,
-        ETAs
+        ETAs,
     } = watch();
     const formValues = getValues();
     const { checkpoints, origin_port, destination_port, departure_date } =
@@ -41,7 +41,18 @@ const JourneyStepper: React.FC = () => {
                     <Step active key={index}>
                         <StepNLabel
                             label={cp}
-                            ETA={ETAs && !isDirty ? dayjs(ETAs[index]).format("DD MMM YYYY - HH:mm") : "Computing"}
+                            ETA={
+                                ETAs && !isDirty
+                                    ? dayjs(ETAs[index].eta).format(
+                                          "DD MMM YYYY - HH:mm"
+                                      )
+                                    : "Computing"
+                            }
+                            weather={
+                                ETAs[index]?.weather &&
+                                !isDirty &&
+                                ETAs[index].weather
+                            }
                         />
                     </Step>
                 ))}
@@ -49,7 +60,18 @@ const JourneyStepper: React.FC = () => {
                 <StepNLabel
                     loc="end"
                     label={destWatcher ? destination_port : "destination_port"}
-                    ETA={ETAs && !isDirty ? dayjs(ETAs[ETAs.length - 1]).format("DD MMM YYYY - HH:mm") : "Computing"}
+                    ETA={
+                        ETAs && !isDirty
+                            ? dayjs(ETAs[ETAs.length - 1].eta).format(
+                                  "DD MMM YYYY - HH:mm"
+                              )
+                            : "Computing"
+                    }
+                    weather={
+                        ETAs && ETAs[ETAs.length - 1].weather &&
+                        !isDirty &&
+                        ETAs[ETAs.length - 1].weather
+                    }
                 />
             </Step>
         </Stepper>

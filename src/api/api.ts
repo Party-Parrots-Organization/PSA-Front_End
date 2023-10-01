@@ -1,4 +1,4 @@
-import { FormType } from "../types/form";
+import { ETA, FormType } from "../types/form";
 import { PortType } from "../types/port";
 import { ShipType } from "../types/ship";
 import { instance } from "./instance";
@@ -32,7 +32,7 @@ export const getETA = async (data: FormType) => {
         }
 
         const { data: ETAs } = await instance.post("/eta", formatted);
-        return ETAs as string[];
+        return ETAs as ETA[];
     } catch (e) {
         console.log(e)
         throw e;
