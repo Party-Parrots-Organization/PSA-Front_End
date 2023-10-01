@@ -4,6 +4,7 @@ import Banner from "../components/common/banner/Banner";
 import { Grid } from "@mui/material";
 import RouteInformationSection from "../components/sections/route_section/RouteInformationSection";
 import { FormProvider, useForm } from "react-hook-form";
+import EstimationSection from "../components/sections/estimation-section/EstimationSection";
 
 const Home: React.FC = () => {
     const formState = useForm();
@@ -16,7 +17,9 @@ const Home: React.FC = () => {
                 <Grid item>
                     <RouteInformationSection />
                 </Grid>
-                <Grid item></Grid>
+                <Grid item>
+                    <EstimationSection />
+                </Grid>
             </Grid>
         </FormProvider>
     );
